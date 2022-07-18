@@ -7,3 +7,43 @@ body {
 main {
     flex-grow: 1;
 }
+
+.menu-false {
+    display:none
+}
+
+.menu-true {
+    display: block;
+}
+
+#mi-trueque {
+     cursor: pointer;
+}
+
+.group {
+    cursor: pointer;
+}
+
+#button-ventas {
+    cursor: pointer;
+}
+
+.div-componete {
+    width: 200px;
+    height: 200px;
+}
+
+.none {
+    opacity: 0;
+    
+}
+
+
+
+@media (min-width: 640px) { 
+    .tamImg {
+        width: 200px;
+        height: 200px;
+    }
+
+ }
