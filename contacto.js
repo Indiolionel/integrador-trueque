@@ -49,9 +49,10 @@ const formMessage = document.getElementById("message")
 
 formContact.addEventListener("submit", (event)=>{
     event.preventDefault();
-    if (!formName || !formMessage || !formEmail) return alert("Llene todos los campos...")
-    
+    if (formName.value=="" || formMessage.value=="" || formEmail.value=="") return alert("Llene todos los campos...")
+
     console.log("Datos enviados, correctamente")
+    formContact.reset()
 })
 
 

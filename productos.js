@@ -1,6 +1,4 @@
 
-
-
 const userName = document.querySelector(".login-user")
 const btnLogin = document.querySelector(".btn-login")
 
@@ -68,6 +66,13 @@ function cerrarModal (){
   return container.removeChild(modal)
 
 }
+function cerrarModaltwo (){
+  const modal = document.getElementById("modal-products-2");
+
+  return container.removeChild(modal)
+
+}
+
 function clickear (e) {
   
   console.log(e)
@@ -80,6 +85,7 @@ const categoria = props[4];
 
 
 console.log("llega aca?")
+
 container.innerHTML += `
 
 
@@ -122,7 +128,7 @@ container.innerHTML += `
 
                 <form>
                 
-                  <button type="submit" class="mt-6 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Cambiar</button>
+                  <button id="changeProduct" class="mt-6 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Cambiar</button>
                   <button id="btn-eliminar" type="submit" class="hidden mt-6 w-full bg-red-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Eliminar</button>
 
                   </form>
@@ -153,6 +159,42 @@ btnEliminar.addEventListener("click", (e)=>{
   localStorage.setItem("productos",JSON.stringify(getProducts));
   console.log("Despues: "+getProducts)
 })
+
+localStorageValue.email !==user?btnEliminar.style.display="none":null
+
+const changeProducts = document.getElementById("changeProduct");
+
+changeProducts.addEventListener("click",(e)=>{
+console.log("aprete")
+
+  container.innerHTML += `
+  
+
+<div id="modal-products-2" class="relative z-10" role="dialog" aria-modal="true">
+  
+<div class="hidden fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity md:block"></div>
+<div class="fixed z-10 inset-0 overflow-y-auto">
+  <div class="flex items-stretch md:items-center justify-center min-h-full text-center md:px-2 lg:px-4">
+
+    <div class="flex text-base text-center transform transition w-full md:max-w-2xl md:px-4 md:my-8 lg:max-w-2xl">
+      <div class="w-full relative flex justify-center items-center bg-white border-2 border-sky-700 pt-14 pb-8 overflow-hidden shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
+        <H2 class="text-center font-mono font-medium text-xl text-neutral-600"> PROXIMAMENTE !! </H2>
+      <button type="button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-500 sm:top-8 sm:right-6 md:top-6 md:right-6 lg:top-8 lg:right-8">
+          <span class="sr-only">Close</span>
+          <!-- Heroicon name: outline/x -->
+          <svg onclick="cerrarModaltwo()"class="modal-x h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>      
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+  `
+
+})
+
 
 }
 
@@ -220,43 +262,13 @@ menu_despegable.addEventListener("click", ()=> {
 
 
 
-const buttonVentas = document.getElementById("button-ventas")
 
 
 const producto = ()=> {
   return location.href = "/productos.html"
 }
 
-buttonVentas.addEventListener("click",()=>{
-  const containerBuscar = document.getElementById("container-buscar")
-   containerBuscar.classList.add("none")
-  console.log("Activado")
-  // console.log("estamos en linea")
-  buttonVentas.classList.add("bg-gray-900")
-  const getUser = JSON.parse(localStorage.getItem("user"))
-console.log(getUser)
-  if (getUser.login=="Desactivado") {
-    return location.href="/login.html"
-  }
-  const ventasUser = getProducts.filter((item)=>{
-    if (item.user==getUser1.email ) return item
-  })
-  console.log(ventasUser)
-  container.innerHTML = ""
-  // const btnBuscar = document.getElementById("categoria-buscar")
-  
 
-  if (ventasUser.length==0) container.innerHTML = `<p> No tienes ninguna venta </p> <button onclick ="producto()" type="submit" class="w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Regresar</button>`
-  
-  ventasUser.forEach(element => {
-      console.log("ventas")
-
-    container.innerHTML += render(element)
-    });
-
-console.log(productos)
-
-})
 
 
 const buttonSearch = document.getElementById("button-addon2")
@@ -315,3 +327,4 @@ console.log(getUser)
 console.log(productos)
 
 })
+
