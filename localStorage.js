@@ -1,4 +1,4 @@
 
-export const getUserStorage = ()=> {
+export const getUserStorage = () => {
     return localStorage.getItem("user")
 }

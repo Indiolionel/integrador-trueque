@@ -9,7 +9,7 @@ main {
 }
 
 .menu-false {
-    display:none
+    display: none
 }
 
 .menu-true {
@@ -17,7 +17,7 @@ main {
 }
 
 #mi-trueque {
-     cursor: pointer;
+    cursor: pointer;
 }
 
 .group {
@@ -35,18 +35,24 @@ main {
 
 .none {
     opacity: 0;
-    
+
 }
 
 
 
-@media (min-width: 640px) { 
+@media (min-width: 640px) {
     .tamImg {
         width: 200px;
         height: 200px;
     }
 
- }
+}
 
- .esconder {
-display: none; }
+.esconder {
+    display: none;
+}
+
+#cerrar-sesion {
+    cursor: pointer;
+    display: none;
+}

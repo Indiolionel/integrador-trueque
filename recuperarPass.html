@@ -2,51 +2,55 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="index.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-          theme: {
-            extend: {
-              colors: {
-                clifford: '#da37#ff3d',
-              }
-            }
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="index.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clifford: '#da37#ff3d',
           }
         }
-      </script>
+      }
+    }
+  </script>
 </head>
 
 <body>
-    <div class="relative flex flex-1 flex-col items-center justify-center pt-12 pb-16">
-        
-                <img class="block lg:hidden h-10 w-auto" src="./Logos santi/handshake-blue-fill.svg" alt="Truequeland">
-                <img src="./Logos santi/handshake-blue.svg" class="logo mx-auto h-20 w-auto" alt="Truequeland">
-        
-        <div class="max-w-sm">
-            <h1 class="mb-2 text-center text-sm font-semibold text-gray-900">Reset your password</h1>
-            <p class="mb-10 text-center text-sm">Enter your email and we'll send you a link to reset your password.</p>
-            <form action="/password/email" class="w-full">
-                <div class="">
-                    <label for="email-address" class="block text-sm font-semibold leading-6 text-gray-900">Email
-                        address</label>
-                    <input type="email" id="email-address" placeholder="Ingrese email"
-                        class="mt-2 appearance-none text-slate-900 bg-white rounded-md block w-full px-3 h-10 shadow-sm sm:text-sm focus:outline-none placeholder:text-slate-400 focus:ring-2 focus:ring-sky-500 ring-1 ring-slate-200"
-                        required value="">
-                </div>
-                <button type="submit" id="btn-recuperar"
-                    class="inline-flex justify-center rounded-lg text-sm font-semibold py-2.5 px-4 bg-blue-900 text-white hover:bg-blue-700 mt-6 w-full">
-                    <span>Reset your password</span>
-                </button>
-            </form>
+  <div class="relative flex flex-1 flex-col items-center justify-center pt-12 pb-16">
+
+    <img src="./Logos santi/handshake-blue.svg" class="logo mx-auto h-20 w-auto" alt="Truequeland">
+
+    <div class="max-w-sm">
+      <h1 class="mb-2 text-center text-sm font-semibold text-gray-900">Restablecer contraseña</h1>
+      <p class="mb-10 text-center text-sm">Ingrese su correo electrónico y le enviaremos un enlace para restablecer su
+        contraseña.</p>
+      <form action="/password/email" class="w-full">
+        <div class="">
+          <label for="email-address" class="block text-sm font-semibold leading-6 text-gray-900">Correo
+            Electronico</label>
+          <input type="email" id="email-address" placeholder="Ingrese email"
+            class="mt-2 appearance-none text-slate-900 bg-white rounded-md block w-full px-3 h-10 shadow-sm sm:text-sm focus:outline-none placeholder:text-slate-400 focus:ring-2 focus:ring-sky-500 ring-1 ring-slate-200"
+            required value="">
         </div>
+        <button type="submit" id="btn-recuperar"
+          class="inline-flex justify-center rounded-lg text-sm font-semibold py-2.5 px-4 bg-blue-900 text-white hover:bg-gray-700 mt-6 w-full">
+          <span>Restablecer contraseña</span>
+        </button>
+        <button type="submit" id="btn-regresar"
+          class="inline-flex justify-center rounded-lg text-sm font-semibold py-2.5 px-4 bg-red-900 text-white hover:bg-gray-700 mt-6 w-full">
+          <span>Regresar</span>
+        </button>
+      </form>
     </div>
+  </div>
 
 </body>
-<script src="./recuperarPass.js"></script>
+<script type="module" src="./recuperarPass.js"></script>
 
 </html>

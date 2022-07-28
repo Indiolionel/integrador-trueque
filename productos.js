@@ -1,55 +1,47 @@
-
 const userName = document.querySelector(".login-user")
 const btnLogin = document.querySelector(".btn-login")
-
+const cerrarSesion = document.getElementById("cerrar-sesion");
 
 const localStorageVar = localStorage.getItem("user")
-if (!localStorageVar ) localStorage.setItem("user",JSON.stringify({email:"anonimus",login:"Desactivado"}))
+if (!localStorageVar) localStorage.setItem("user", JSON.stringify({ email: "anonimus", login: "Desactivado" }))
 const localStorageValue = JSON.parse(localStorage.getItem("user"))
 
 if (localStorageVar) {
-    const getUser = JSON.parse(localStorage.getItem("user"))
-    const name = getUser.email.split("@")
-    getUser.login=="Activado"? userName.textContent = name[0]:null
+  const getUser = JSON.parse(localStorage.getItem("user"))
+  const name = getUser.email.split("@")
+  getUser.login == "Activado" ? userName.textContent = name[0] : null
+  getUser.login == "Activado" ? cerrarSesion.style.display = "block" : null
+  getUser.login == "Activado" ? btnLogin.disabled = true : null
+  getUser.login == "Desactivado" ? btnLogin.classList.add("hover:text-white") : null
+
+}
+
+
+cerrarSesion.addEventListener("click", () => {
+  if (localStorageValue) {
+    if (localStorageValue.login == "Activado") {
+      const valor = confirm("Estas seguro que quieres salir!?")
+      if (valor) {
+        localStorage.setItem("user", JSON.stringify({ email: "anonimus", login: "Desactivado" }));
+        location.href = "/index.html"
+      }
+    }
   }
-
-btnLogin.addEventListener("click", () => {
-
-    if (localStorageValue) {
-       if (localStorageValue.login=="Activado") {
-        const valor = confirm("Estas seguro que quieres salir!?")
-               if (valor) {
-            localStorage.setItem("user",JSON.stringify({email:"anonimus",login:"Desactivado"}));
-            location.href = "/index.html"
-        }}
-    } 
-    if (localStorageValue.login=="Desactivado") location.href = "./login.html"
-
-
-
-
 })
 
 
-// const container = document.getElementById("container")
+btnLogin.addEventListener("click", () => {
 
+   if (localStorageValue.login == "Desactivado") location.href = "./login.html"
 
-// const addItem = (name, price) =>
-//     container.innerHTML += `
-// <a href="#" class="group">
-//               <div class="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
-//                 <img src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg" alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." class="w-full h-full object-center object-cover group-hover:opacity-75">
-//               </div>
-//               <h3 class="mt-4 text-sm text-gray-700">${name}</h3>
-//               <p class="mt-1 text-lg font-medium text-gray-900">${price}</p>
-//             </a>
-// `
+})
+
 
 
 const productos = [];
 
 class Producto {
-  constructor(img, name, price, user,categoria) {
+  constructor(img, name, price, user, categoria) {
 
     this.img = img;
     this.name = name;
@@ -57,38 +49,32 @@ class Producto {
     this.user = user;
     this.categoria = categoria;
   }
-    
+
 }
 
-function cerrarModal (){
+function cerrarModal() {
   const modal = document.getElementById("modal-products");
 
   return container.removeChild(modal)
 
 }
-function cerrarModaltwo (){
+function cerrarModalProximamente() {
   const modal = document.getElementById("modal-products-2");
 
   return container.removeChild(modal)
 
 }
 
-function clickear (e) {
-  
-  console.log(e)
-const props = e.split(",")
-const img = props[0]
-const name = props[1]
-const price = props[2]
-const user = props[3]
-const categoria = props[4];
+function clickear(e) {
 
+  const props = e.split(",")
+  const img = props[0]
+  const name = props[1]
+  const price = props[2]
+  const user = props[3]
+  const categoria = props[4];
 
-console.log("llega aca?")
-
-container.innerHTML += `
-
-
+  container.innerHTML += `
 
 <div id="modal-products" class="relative z-10" role="dialog" aria-modal="true">
   
@@ -112,7 +98,7 @@ container.innerHTML += `
             </div>
             <div class="sm:col-span-8 lg:col-span-7">
               <h2 class="text-2xl font-extrabold text-gray-900 sm:pr-12">${name}</h2>
-              <h2 class="text-2xl font-extrabold text-gray-900 sm:pr-12">${user}</h2>
+            <!--  <h2 class="text-2xl font-extrabold text-gray-900 sm:pr-12">${user}</h2> -->
 
               <section aria-labelledby="information-heading" class="mt-2">
                 <h3 id="information-heading" class="sr-only">Product information</h3>
@@ -142,34 +128,32 @@ container.innerHTML += `
 </div>
 
 `
-const btnEliminar = document.getElementById("btn-eliminar")
-user!="anonimus"? btnEliminar.classList.remove("hidden"):null;
+  const btnEliminar = document.getElementById("btn-eliminar")
+  user != "anonimus" ? btnEliminar.classList.remove("hidden") : null;
 
-btnEliminar.addEventListener("click", (e)=>{
-  const getProducts = JSON.parse(localStorage.getItem("productos"))
+  btnEliminar.addEventListener("click", (e) => {
+    const getProducts = JSON.parse(localStorage.getItem("productos"))
 
-  let contador =0;
-  console.log("Antes: "+getProducts)
-  getProducts.forEach((item)=>{
-    
-    
-    item.name==name && getProducts.splice(contador,1);
-    contador++;
+    let contador = 0;
+
+    getProducts.forEach((item) => {
+
+
+      item.name == name && getProducts.splice(contador, 1);
+      contador++;
+    })
+    localStorage.setItem("productos", JSON.stringify(getProducts));
   })
-  localStorage.setItem("productos",JSON.stringify(getProducts));
-  console.log("Despues: "+getProducts)
-})
 
-localStorageValue.email !==user?btnEliminar.style.display="none":null
+  localStorageValue.email !== user ? btnEliminar.style.display = "none" : null
 
-const changeProducts = document.getElementById("changeProduct");
+  const changeProducts = document.getElementById("changeProduct");
 
-changeProducts.addEventListener("click",(e)=>{
-console.log("aprete")
+  changeProducts.addEventListener("click", (e) => {
 
-  container.innerHTML += `
+    cerrarModal();
+    container.innerHTML += `
   
-
 <div id="modal-products-2" class="relative z-10" role="dialog" aria-modal="true">
   
 <div class="hidden fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity md:block"></div>
@@ -182,7 +166,7 @@ console.log("aprete")
       <button type="button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-500 sm:top-8 sm:right-6 md:top-6 md:right-6 lg:top-8 lg:right-8">
           <span class="sr-only">Close</span>
           <!-- Heroicon name: outline/x -->
-          <svg onclick="cerrarModaltwo()"class="modal-x h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+          <svg onclick="cerrarModalProximamente()"class="modal-x h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>      
@@ -193,20 +177,17 @@ console.log("aprete")
 </div>
   `
 
-})
+  })
 
 
 }
 
 
-const render = (element)=> {
-  
-  console.log(element.user)
-  
-  return `
-  
+const render = (element) => {
 
- 
+
+  return `
+   
   <a  onclick="clickear('${Object.values(element)}')" class="group flex flex-col items-center">
   <div class="flex justify-center div-componete w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
     <img src="${element.img}" alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." class="h-full object-center object-cover group-hover:opacity-75">
@@ -216,13 +197,14 @@ const render = (element)=> {
 </a>                         
         `
 }
+
 const getUser1 = JSON.parse(localStorage.getItem("user"))
-const pantalon = new Producto("https://tuagro.com/wp-content/uploads/2019/10/Jeans-PNG-Picture-1.png", "pantalon", 2999,getUser1.email,"ropa")
-const televisor = new Producto("https://www.serviceitalia.com.ar/images/uploads/ecommerce/10686.png", "televisor 50p", 45000,getUser1.email,"electrodomestico")
-const silla = new Producto("https://construccionesleon.com.ar/wp-content/uploads/2020/10/Silla.png","silla", 1200,getUser1.email,"cosas hogar")
-const remera =  new Producto("http://d3ugyf2ht6aenh.cloudfront.net/stores/440/495/products/gorila1-8d2d2baee9ee356d2716054538359236-640-0.png", "remera", 1999,getUser1.email,"ropa")
-const heladera = new Producto("https://images.samsung.com/is/image/samsung/ar-refrigerador-rt32k5070s8-rt32k5070s8-b3-Silver-187885326?scl=1&fmt=png-alpha", "heladera", 85000,getUser1.email,"electrodomestico")
-const televisor2 = new Producto("https://media.nidux.net/pull/599/800/10637/949-product-619fb81ab5c4e-30-16096.png", "televisor 42p", 41000,getUser1.email,"electrodomestico")
+const pantalon = new Producto("https://tuagro.com/wp-content/uploads/2019/10/Jeans-PNG-Picture-1.png", "pantalon", 2999, getUser1.email, "ropa")
+const televisor = new Producto("https://www.serviceitalia.com.ar/images/uploads/ecommerce/10686.png", "televisor 50p", 45000, getUser1.email, "electrodomestico")
+const silla = new Producto("https://construccionesleon.com.ar/wp-content/uploads/2020/10/Silla.png", "silla", 1200, getUser1.email, "cosas hogar")
+const remera = new Producto("http://d3ugyf2ht6aenh.cloudfront.net/stores/440/495/products/gorila1-8d2d2baee9ee356d2716054538359236-640-0.png", "remera", 1999, getUser1.email, "ropa")
+const heladera = new Producto("https://images.samsung.com/is/image/samsung/ar-refrigerador-rt32k5070s8-rt32k5070s8-b3-Silver-187885326?scl=1&fmt=png-alpha", "heladera", 85000, getUser1.email, "electrodomestico")
+const televisor2 = new Producto("https://media.nidux.net/pull/599/800/10637/949-product-619fb81ab5c4e-30-16096.png", "televisor 42p", 41000, getUser1.email, "electrodomestico")
 
 
 productos.push(pantalon, televisor, televisor2, silla, remera, heladera)
@@ -232,14 +214,14 @@ const container = document.getElementById("container-producto")
 
 
 
-!(localStorage.getItem("productos"))?localStorage.setItem("productos", JSON.stringify(productos)):null
+!(localStorage.getItem("productos")) ? localStorage.setItem("productos", JSON.stringify(productos)) : null
 
 const getProducts = JSON.parse(localStorage.getItem("productos"))
 
 function mostrarInfo() {
 
   getProducts.forEach(element => {
-  container.innerHTML += render(element)
+    container.innerHTML += render(element)
   });
 
 }
@@ -253,9 +235,9 @@ const menu_mobile = document.querySelector(".menu-false")
 const nav = document.getElementById("nav")
 
 
-menu_despegable.addEventListener("click", ()=> {
-   
-    menu_mobile.classList.toggle("menu-true")   
+menu_despegable.addEventListener("click", () => {
+
+  menu_mobile.classList.toggle("menu-true")
 
 })
 
@@ -264,7 +246,7 @@ menu_despegable.addEventListener("click", ()=> {
 
 
 
-const producto = ()=> {
+const producto = () => {
   return location.href = "/productos.html"
 }
 
@@ -274,57 +256,49 @@ const producto = ()=> {
 const buttonSearch = document.getElementById("button-addon2")
 
 const inputBuscar = document.getElementById("categoria-buscar")
-inputBuscar.addEventListener("input", (e)=>{
+inputBuscar.addEventListener("input", (e) => {
 
   const texto = e.target.value.toLowerCase()
-  
-       
-  const paramEncontrado = getProducts.filter((item)=>{
-    if (item.name.toLowerCase().indexOf(texto)==0) return item
+
+
+  const paramEncontrado = getProducts.filter((item) => {
+    if (item.name.toLowerCase().indexOf(texto) == 0) return item
   })
 
   container.innerHTML = ""
+
   paramEncontrado.forEach(element => {
-    console.log("Mis ventas")
+
     container.innerHTML += render(element)
-    });
+
+  });
 
 
 })
 
-
-
-
-
 const buttonVentas2 = document.getElementById("button-ventas2")
 
 
+buttonVentas2.addEventListener("click", () => {
 
-
-buttonVentas2.addEventListener("click",()=>{
-  console.log("Activado")
-  // console.log("estamos en linea")
   buttonVentas2.classList.add("bg-gray-900")
   const getUser = JSON.parse(localStorage.getItem("user"))
-console.log(getUser)
-  if (getUser.login=="Desactivado") {
-    return location.href="/login.html"
+
+  if (getUser.login == "Desactivado") {
+    return location.href = "/login.html"
   }
-  const ventasUser = getProducts.filter((item)=>{
-    if (item.user==getUser1.email ) return item
+  const ventasUser = getProducts.filter((item) => {
+    if (item.user == getUser1.email) return item
   })
-  console.log(ventasUser)
   container.innerHTML = ""
   const btnBuscar = document.getElementById("categoria-buscar")
-  if (ventasUser.length==0) btnBuscar.disabled=true
-  if (ventasUser.length==0) container.innerHTML = `<p> No tienes ninguna venta </p> <button onclick ="producto()" type="submit" class="mt-6 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Regresar</button>`
-  
+  if (ventasUser.length == 0) btnBuscar.disabled = true
+  if (ventasUser.length == 0) container.innerHTML = `<p> No tienes ninguna venta </p> <button onclick ="producto()" type="submit" class="mt-6 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Regresar</button>`
+
   ventasUser.forEach(element => {
 
     container.innerHTML += render(element)
-    });
-
-console.log(productos)
+  });
 
 })
 
