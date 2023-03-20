@@ -185,7 +185,7 @@ const ventasUser = getProducts.filter((item) => {
 
 if (getUser1.email == "anonimus") location.href = "./login.html"
 else {
-  if (ventasUser.length == 0) container.innerHTML = `<div flex justify-center	><p> No tienes ninguna venta </p><div>`
+  if (ventasUser.length == 0) container.innerHTML = `<div flex justify-center absolute mx-30><p> No tienes ninguna venta </p><div>`
   else {
     container.innerHTML = ""
 
